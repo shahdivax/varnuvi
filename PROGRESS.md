@@ -26,6 +26,10 @@
 - `MicState` enum (idle, listening, processing) and `FakeDictation` (ValueNotifier + Timer): tap -> listening 3 s -> processing 1.2 s -> idle; tapping while listening skips ahead.
 - `MicButton` shows a soft pulse ring while listening, a thin spinner while processing; status line under it is a screen-reader live region.
 
+### 6. History
+- Mock `Transcript` list (`lib/mock/mock_history.dart`), newest first; `HistoryTile` shows mode, relative time, two-line preview, copy button.
+- `HistoryDetailScreen`: full timestamp, selectable text, tonal Copy button; clipboard via built-in `Clipboard`. Unit test for `lib/utils/time_format.dart`.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -38,3 +42,4 @@
 - Navigation: plain `setState` + `IndexedStack`, no router package.
 - Home mode chip selection is local UI state only; the card label follows the selected chip.
 - Listening state uses a pulse ring, not a waveform (simpler, no fake audio levels needed).
+- Timestamps formatted by hand (`lib/utils/time_format.dart`), no `intl` package. History is in-memory mock only; nothing is stored.
