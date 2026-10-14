@@ -14,6 +14,10 @@
 - Light/dark `ColorScheme`s built explicitly (no seed) from `lib/theme/app_colors.dart`; dusty slate blue accent, no pure white/black.
 - `ThemeController` (ValueNotifier) switches light/dark/system; UI selector comes in Settings (step 7).
 
+### 3. App shell
+- `lib/shell/app_shell.dart`: M3 `NavigationBar` with Home, Apps, History, Settings; `IndexedStack` keeps tab state.
+- Each tab is a tiny placeholder screen in `lib/screens/`, sharing `lib/widgets/placeholder_view.dart`.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -23,3 +27,4 @@
 - Launcher icon: system default icon (no binary assets in this phase).
 - Theme mode is in-memory only (no storage package); resets to system on restart.
 - No `cardTheme` in ThemeData to stay compatible across Flutter versions (CardTheme vs CardThemeData rename); cards get styled per widget.
+- Navigation: plain `setState` + `IndexedStack`, no router package.

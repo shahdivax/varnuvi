@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'config/app_config.dart';
+import 'shell/app_shell.dart';
 import 'theme/app_theme.dart';
 import 'theme/theme_controller.dart';
 
@@ -21,9 +22,7 @@ class VoiceAgentApp extends StatelessWidget {
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: mode,
-        home: const Scaffold(
-          body: Center(child: Text(kAppName)),
-        ),
+        home: const AppShell(),
       ),
     );
   }
