@@ -38,6 +38,10 @@
 - `AllowlistStore.kt`: enabled package names as a string set in SharedPreferences, empty by default (bubble off everywhere).
 - One MethodChannel `dev.voiceagent.app/bridge`: `NativeBridge.kt` + `lib/bridge/native_bridge.dart` with `getInstalledApps` (name + package, sorted, own app excluded), `getEnabledPackages`, `setPackageEnabled`.
 
+### 9. Apps screen
+- Bridge now sends each app's own launcher icon, rendered natively to a 96 px PNG by `AppIconEncoder.kt`; no bundled brand logos.
+- `AppsScreen`: search (name or package), one `AppToggleTile` per app with a switch wired to `setPackageEnabled`; loading, error and no-match states.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -54,4 +58,6 @@
 - Settings (default mode, translation language) are in-memory only, same as theme; persistence can come with the native prefs bridge later.
 - Package visibility via a `<queries>` MAIN/LAUNCHER block, not QUERY_ALL_PACKAGES (narrower, Play-policy friendly).
 - App list is loaded on a plain background thread and posted back to the main looper (no coroutines dependency).
-- App icons are not sent yet; they are added to the bridge in step 9 where the Apps screen needs them.
+- App icons were left out of step 8 and added in step 9, where the Apps screen needs them.
+- Icons cross the channel as PNG bytes (Kotlin ByteArray to Dart Uint8List), loaded together with the app list.
+- App toggles are optimistic and revert with a snackbar if the native save fails.

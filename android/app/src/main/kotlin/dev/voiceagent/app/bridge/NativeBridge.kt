@@ -32,7 +32,12 @@ class NativeBridge(private val context: Context) : MethodChannel.MethodCallHandl
         Thread {
             try {
                 val apps = InstalledApps.launchable(context).map {
-                    mapOf("name" to it.name, "packageName" to it.packageName)
+                    mapOf(
+                        "name" to it.name,
+                        "packageName" to it.packageName,
+                        // ByteArray arrives in Dart as Uint8List.
+                        "icon" to it.icon,
+                    )
                 }
                 main.post { result.success(apps) }
             } catch (e: Exception) {
