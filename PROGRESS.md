@@ -42,6 +42,10 @@
 - Bridge now sends each app's own launcher icon, rendered natively to a 96 px PNG by `AppIconEncoder.kt`; no bundled brand logos.
 - `AppsScreen`: search (name or package), one `AppToggleTile` per app with a switch wired to `setPackageEnabled`; loading, error and no-match states.
 
+### 10. Accessibility service skeleton
+- `VoiceAccessibilityService.kt` declared in the manifest with `res/xml/accessibility_service_config.xml` (window state + view focused events, `canRetrieveWindowContent`, `flagDefault`).
+- Logs only the package name when an editable, non-password field is focused; `FocusedField.kt` checks editable/password flags and input type, never text.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -61,3 +65,6 @@
 - App icons were left out of step 8 and added in step 9, where the Apps screen needs them.
 - Icons cross the channel as PNG bytes (Kotlin ByteArray to Dart Uint8List), loaded together with the app list.
 - App toggles are optimistic and revert with a snackbar if the native save fails.
+- Event type `typeAllWindowStateChanged` from the brief is not a real constant; used `typeWindowStateChanged|typeViewFocused`.
+- Accessibility service is `exported="true"` guarded by `BIND_ACCESSIBILITY_SERVICE` (standard pattern; only the system can bind).
+- Password detection uses `isPassword` plus password input-type variations (text, visible, web, number).

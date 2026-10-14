@@ -2,4 +2,5 @@
 <resources>
     <!-- Keep in sync with kAppName in lib/config/app_config.dart -->
     <string name="app_name">Voice Agent</string>
+    <string name="accessibility_service_description">Shows a dictation bubble in text fields of apps you enable. It checks only whether the focused field is editable and which app it belongs to. It never reads, stores, or sends what is on your screen, and ignores password fields.</string>
 </resources>
