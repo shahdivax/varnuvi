@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bubble_background">#FF9AA7B8</color>
+    <color name="bubble_foreground">#FF1F242B</color>
+    <color name="bubble_border">#FF3A3B41</color>
+</resources>

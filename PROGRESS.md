@@ -50,6 +50,10 @@
 - `AccessibilitySetupCard` at the top of Settings: live on/off status, plain-language "what it does / does not do", button opening Android accessibility settings; rechecks on app resume.
 - Bridge: `isAccessibilityServiceEnabled`, `openAccessibilitySettings` via `ServiceStatus.kt`.
 
+### 12. Bubble overlay
+- `overlay/BubbleOverlay.kt`: 52 dp round bubble in a `TYPE_ACCESSIBILITY_OVERLAY` window (no overlay permission), `FLAG_NOT_FOCUSABLE` so it never steals focus; `BubbleTouchListener` drags it, `BubblePositionStore` remembers the drop spot.
+- Service shows it only when the active window belongs to an enabled package and its input-focused node is editable and not a password field; hides otherwise. Tap only logs for now (insertion is step 13).
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -73,3 +77,6 @@
 - Accessibility service is `exported="true"` guarded by `BIND_ACCESSIBILITY_SERVICE` (standard pattern; only the system can bind).
 - Password detection uses `isPassword` plus password input-type variations (text, visible, web, number).
 - Setup card lives in Settings (Home keeps its single primary action). Service status read from `Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES` (no extra permission).
+- Bubble visibility is decided from `rootInActiveWindow` (package + input focus), not the event package, so the overlay window events never toggle it; our own app never shows it.
+- Bubble stays while the field keeps input focus even if the keyboard is dismissed (no extra, noisier event types subscribed).
+- Bubble colors in `res/values(-night)/colors.xml` mirror `app_colors.dart`; mic glyph is a vector drawable; default spot is the right edge at 40% height.
