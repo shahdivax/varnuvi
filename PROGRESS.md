@@ -70,6 +70,10 @@
 - History list padding aligned to the 24 px side margin used on every other tab; long setup-card button line wrapped.
 - Mic button exposes one merged semantics node (label + tap) instead of a duplicate inner button; Apps loading spinner has a screen-reader label.
 
+### 16. README
+- `README.md`: how to run, enabling the service on a device, privacy, folder structure, known limitations, not-built list, bring-your-own-API-keys section.
+- Phase complete. Nothing compiled or device-tested (no Flutter/Android SDK on the build machine).
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
