@@ -3,6 +3,7 @@ package dev.voiceagent.app.bridge
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import dev.voiceagent.app.accessibility.ServiceStatus
 import dev.voiceagent.app.allowlist.AllowlistStore
 import dev.voiceagent.app.apps.InstalledApps
 import io.flutter.plugin.common.BinaryMessenger
@@ -23,6 +24,12 @@ class NativeBridge(private val context: Context) : MethodChannel.MethodCallHandl
             "getInstalledApps" -> loadApps(result)
             "getEnabledPackages" -> result.success(allowlist.enabledPackages().toList())
             "setPackageEnabled" -> setEnabled(call, result)
+            "isAccessibilityServiceEnabled" ->
+                result.success(ServiceStatus.isEnabled(context))
+            "openAccessibilitySettings" -> {
+                ServiceStatus.openSettings(context)
+                result.success(null)
+            }
             else -> result.notImplemented()
         }
     }

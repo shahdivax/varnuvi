@@ -46,6 +46,10 @@
 - `VoiceAccessibilityService.kt` declared in the manifest with `res/xml/accessibility_service_config.xml` (window state + view focused events, `canRetrieveWindowContent`, `flagDefault`).
 - Logs only the package name when an editable, non-password field is focused; `FocusedField.kt` checks editable/password flags and input type, never text.
 
+### 11. Setup flow
+- `AccessibilitySetupCard` at the top of Settings: live on/off status, plain-language "what it does / does not do", button opening Android accessibility settings; rechecks on app resume.
+- Bridge: `isAccessibilityServiceEnabled`, `openAccessibilitySettings` via `ServiceStatus.kt`.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -68,3 +72,4 @@
 - Event type `typeAllWindowStateChanged` from the brief is not a real constant; used `typeWindowStateChanged|typeViewFocused`.
 - Accessibility service is `exported="true"` guarded by `BIND_ACCESSIBILITY_SERVICE` (standard pattern; only the system can bind).
 - Password detection uses `isPassword` plus password input-type variations (text, visible, web, number).
+- Setup card lives in Settings (Home keeps its single primary action). Service status read from `Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES` (no extra permission).

@@ -25,4 +25,13 @@ abstract final class NativeBridge {
       {'packageName': packageName, 'enabled': enabled},
     );
   }
+
+  /// Whether the user turned on our accessibility service.
+  static Future<bool> isAccessibilityServiceEnabled() async =>
+      await _channel.invokeMethod<bool>('isAccessibilityServiceEnabled') ??
+      false;
+
+  /// Opens Android's accessibility settings screen.
+  static Future<void> openAccessibilitySettings() =>
+      _channel.invokeMethod<void>('openAccessibilitySettings');
 }

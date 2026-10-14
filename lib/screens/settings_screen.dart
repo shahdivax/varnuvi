@@ -4,11 +4,13 @@ import '../mock/mock_languages.dart';
 import '../models/transcript_mode.dart';
 import '../settings/app_settings.dart';
 import '../theme/theme_controller.dart';
+import '../widgets/accessibility_setup_card.dart';
 import '../widgets/account_placeholder_card.dart';
 import '../widgets/mode_chips.dart';
 import '../widgets/settings_section.dart';
 
-/// Settings: theme, default mode, translation language, account placeholder.
+/// Settings: bubble service setup, theme, default mode, translation
+/// language, account placeholder.
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -17,6 +19,10 @@ class SettingsScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
       children: [
+        const SettingsSection(
+          title: 'Bubble',
+          child: AccessibilitySetupCard(),
+        ),
         SettingsSection(
           title: 'Theme',
           child: ValueListenableBuilder<ThemeMode>(
