@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Debug builds only: the Flutter tool needs this to attach for hot reload.
+         Release builds have no network permission. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>
