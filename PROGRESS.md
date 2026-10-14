@@ -30,6 +30,10 @@
 - Mock `Transcript` list (`lib/mock/mock_history.dart`), newest first; `HistoryTile` shows mode, relative time, two-line preview, copy button.
 - `HistoryDetailScreen`: full timestamp, selectable text, tonal Copy button; clipboard via built-in `Clipboard`. Unit test for `lib/utils/time_format.dart`.
 
+### 7. Settings
+- Theme selector (`SegmentedButton`: light, dark, system) wired to `ThemeController`; default mode reuses `ModeChips`; translation language dropdown from `lib/mock/mock_languages.dart`.
+- `AppSettings` holds default mode and language as `ValueNotifier`s; Account section is a placeholder card saying it comes later.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -43,3 +47,4 @@
 - Home mode chip selection is local UI state only; the card label follows the selected chip.
 - Listening state uses a pulse ring, not a waveform (simpler, no fake audio levels needed).
 - Timestamps formatted by hand (`lib/utils/time_format.dart`), no `intl` package. History is in-memory mock only; nothing is stored.
+- Settings (default mode, translation language) are in-memory only, same as theme; persistence can come with the native prefs bridge later.
