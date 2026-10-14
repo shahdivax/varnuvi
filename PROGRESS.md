@@ -34,6 +34,10 @@
 - Theme selector (`SegmentedButton`: light, dark, system) wired to `ThemeController`; default mode reuses `ModeChips`; translation language dropdown from `lib/mock/mock_languages.dart`.
 - `AppSettings` holds default mode and language as `ValueNotifier`s; Account section is a placeholder card saying it comes later.
 
+### 8. Allowlist storage (native)
+- `AllowlistStore.kt`: enabled package names as a string set in SharedPreferences, empty by default (bubble off everywhere).
+- One MethodChannel `dev.voiceagent.app/bridge`: `NativeBridge.kt` + `lib/bridge/native_bridge.dart` with `getInstalledApps` (name + package, sorted, own app excluded), `getEnabledPackages`, `setPackageEnabled`.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -48,3 +52,6 @@
 - Listening state uses a pulse ring, not a waveform (simpler, no fake audio levels needed).
 - Timestamps formatted by hand (`lib/utils/time_format.dart`), no `intl` package. History is in-memory mock only; nothing is stored.
 - Settings (default mode, translation language) are in-memory only, same as theme; persistence can come with the native prefs bridge later.
+- Package visibility via a `<queries>` MAIN/LAUNCHER block, not QUERY_ALL_PACKAGES (narrower, Play-policy friendly).
+- App list is loaded on a plain background thread and posted back to the main looper (no coroutines dependency).
+- App icons are not sent yet; they are added to the bridge in step 9 where the Apps screen needs them.
