@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 import dev.voiceagent.app.allowlist.AllowlistStore
 import dev.voiceagent.app.insert.MockText
 import dev.voiceagent.app.insert.TextInserter
+import dev.voiceagent.app.overlay.BubbleDictation
 import dev.voiceagent.app.overlay.BubbleOverlay
 
 /**
@@ -18,11 +19,17 @@ import dev.voiceagent.app.overlay.BubbleOverlay
 class VoiceAccessibilityService : AccessibilityService() {
     private var allowlist: AllowlistStore? = null
     private var bubble: BubbleOverlay? = null
+    private var dictation: BubbleDictation? = null
 
     override fun onServiceConnected() {
         super.onServiceConnected()
         allowlist = AllowlistStore(this)
-        bubble = BubbleOverlay(this) { insertSample() }
+        bubble = BubbleOverlay(this) { dictation?.toggle() }
+        // Fake timer: listening -> processing -> insert the sample sentence.
+        dictation = BubbleDictation(
+            onState = { bubble?.render(it) },
+            onDone = { insertSample() },
+        )
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -46,6 +53,7 @@ class VoiceAccessibilityService : AccessibilityService() {
             if (bubble?.isShowing == false) Log.d(TAG, "Bubble shown in $pkg")
             bubble?.show()
         } else {
+            dictation?.cancel()
             bubble?.hide()
         }
     }
@@ -66,10 +74,13 @@ class VoiceAccessibilityService : AccessibilityService() {
     }
 
     override fun onInterrupt() {
+        dictation?.cancel()
         bubble?.hide()
     }
 
     override fun onDestroy() {
+        dictation?.cancel()
+        dictation = null
         bubble?.hide()
         bubble = null
         super.onDestroy()

@@ -15,6 +15,7 @@ class BubbleOverlay(private val context: Context, private val onTap: () -> Unit)
     private val wm = context.getSystemService(WindowManager::class.java)
     private val positions = BubblePositionStore(context)
     private var view: View? = null
+    private var renderer: BubbleStateRenderer? = null
 
     val isShowing: Boolean get() = view != null
 
@@ -45,10 +46,18 @@ class BubbleOverlay(private val context: Context, private val onTap: () -> Unit)
         }
         wm.addView(bubble, params)
         view = bubble
+        renderer = BubbleStateRenderer(bubble)
+    }
+
+    /** Updates the bubble look; no-op while hidden. */
+    fun render(state: BubbleState) {
+        renderer?.render(state)
     }
 
     fun hide() {
         val v = view ?: return
+        renderer?.stop()
+        renderer = null
         wm.removeView(v)
         view = null
     }

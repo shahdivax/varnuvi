@@ -58,6 +58,10 @@
 - Bubble tap inserts `MockText.SAMPLE_SENTENCE` via `insert/TextInserter.kt`: `ACTION_SET_TEXT` merged at the cursor (cursor moved after it), fallback clipboard + `ACTION_PASTE`.
 - Service re-checks the focused field (enabled app, editable, not password) at tap time and logs only `Insert path=SET_TEXT|PASTE|FAILED` plus the package.
 
+### 14. Bubble states
+- `BubbleDictation.kt` (Handler fake timer, same 3 s / 1.2 s as Home): tap -> listening -> processing -> inserts the sample sentence -> idle; tapping while listening skips ahead.
+- `BubbleStateRenderer.kt`: listening = deeper tone + gentle shrink pulse, processing = dots glyph + soft fade; content description per state. Focus loss cancels without inserting.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -87,3 +91,5 @@
 - Merging at the cursor needs the field's current text; it is read in memory only at tap time, never logged or stored. Service description reworded from "never reads" to "never stores or sends" to stay accurate.
 - Hint text is treated as an empty field; missing cursor info appends at the end.
 - Paste fallback overwrites the clipboard and does not restore it (background apps cannot read the clipboard on Android 10+).
+- Bubble pulse only shrinks (1 -> 0.9), so it never clips inside its fixed-size overlay window. Animations follow the system animator scale.
+- If the field loses focus mid-cycle the cycle is cancelled and nothing is inserted; insertion still re-checks eligibility at the end.
