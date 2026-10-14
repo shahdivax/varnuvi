@@ -54,6 +54,10 @@
 - `overlay/BubbleOverlay.kt`: 52 dp round bubble in a `TYPE_ACCESSIBILITY_OVERLAY` window (no overlay permission), `FLAG_NOT_FOCUSABLE` so it never steals focus; `BubbleTouchListener` drags it, `BubblePositionStore` remembers the drop spot.
 - Service shows it only when the active window belongs to an enabled package and its input-focused node is editable and not a password field; hides otherwise. Tap only logs for now (insertion is step 13).
 
+### 13. Mock insertion
+- Bubble tap inserts `MockText.SAMPLE_SENTENCE` via `insert/TextInserter.kt`: `ACTION_SET_TEXT` merged at the cursor (cursor moved after it), fallback clipboard + `ACTION_PASTE`.
+- Service re-checks the focused field (enabled app, editable, not password) at tap time and logs only `Insert path=SET_TEXT|PASTE|FAILED` plus the package.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -80,3 +84,6 @@
 - Bubble visibility is decided from `rootInActiveWindow` (package + input focus), not the event package, so the overlay window events never toggle it; our own app never shows it.
 - Bubble stays while the field keeps input focus even if the keyboard is dismissed (no extra, noisier event types subscribed).
 - Bubble colors in `res/values(-night)/colors.xml` mirror `app_colors.dart`; mic glyph is a vector drawable; default spot is the right edge at 40% height.
+- Merging at the cursor needs the field's current text; it is read in memory only at tap time, never logged or stored. Service description reworded from "never reads" to "never stores or sends" to stay accurate.
+- Hint text is treated as an empty field; missing cursor info appends at the end.
+- Paste fallback overwrites the clipboard and does not restore it (background apps cannot read the clipboard on Android 10+).

@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import dev.voiceagent.app.allowlist.AllowlistStore
+import dev.voiceagent.app.insert.MockText
+import dev.voiceagent.app.insert.TextInserter
 import dev.voiceagent.app.overlay.BubbleOverlay
 
 /**
  * Shows the bubble while an editable, non-password field is focused in an
- * enabled app. Looks only at the focused node's flags and the package name;
- * it never reads, logs, stores, or transmits any on-screen text.
+ * enabled app. Looks only at the focused node's flags and the package name.
+ * On a bubble tap it reads the field's text in memory solely to merge the
+ * insertion; it never logs, stores, or transmits any on-screen text.
  */
 class VoiceAccessibilityService : AccessibilityService() {
     private var allowlist: AllowlistStore? = null
@@ -19,7 +22,7 @@ class VoiceAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
         allowlist = AllowlistStore(this)
-        bubble = BubbleOverlay(this) { Log.d(TAG, "Bubble tapped") }
+        bubble = BubbleOverlay(this) { insertSample() }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -45,6 +48,21 @@ class VoiceAccessibilityService : AccessibilityService() {
         } else {
             bubble?.hide()
         }
+    }
+
+    // Mock insertion: a fixed sample sentence, no speech recognition yet.
+    // Re-checks the field at tap time; logs only the path and package.
+    private fun insertSample() {
+        val focused = findFocus(AccessibilityNodeInfo.FOCUS_INPUT)
+        val pkg = focused?.packageName?.toString()
+        if (focused == null || pkg == null || pkg == packageName ||
+            allowlist?.isEnabled(pkg) != true || !FocusedField.isEligible(focused)
+        ) {
+            Log.d(TAG, "Insert skipped: no eligible field")
+            return
+        }
+        val path = TextInserter.insert(this, focused, MockText.SAMPLE_SENTENCE)
+        Log.d(TAG, "Insert path=$path in $pkg")
     }
 
     override fun onInterrupt() {
