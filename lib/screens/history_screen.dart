@@ -34,7 +34,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       );
     }
     return ListView.separated(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
       itemCount: _items.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (_, i) => HistoryTile(

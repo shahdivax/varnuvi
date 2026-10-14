@@ -66,6 +66,10 @@
 - `lib/providers/`: abstract `SpeechToTextProvider` and `AgentProvider` (Dart 3 `interface class`), each with a mock implementation only; no real providers.
 - Mocks return the sample sentence / the input unchanged; nothing is wired to real audio or network.
 
+### 15. Polish
+- History list padding aligned to the 24 px side margin used on every other tab; long setup-card button line wrapped.
+- Mic button exposes one merged semantics node (label + tap) instead of a duplicate inner button; Apps loading spinner has a screen-reader label.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).

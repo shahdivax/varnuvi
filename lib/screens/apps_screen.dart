@@ -86,7 +86,10 @@ class _AppsScreenState extends State<AppsScreen> {
       );
     }
     if (apps == null) {
-      return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+      return const Center(child: CircularProgressIndicator(
+          strokeWidth: 2,
+          semanticsLabel: 'Loading apps',
+        ));
     }
     final visible = _visible(apps);
     final scheme = Theme.of(context).colorScheme;

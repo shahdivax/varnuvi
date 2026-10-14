@@ -58,6 +58,8 @@ class _MicButtonState extends State<MicButton>
       button: true,
       enabled: !busy,
       label: state.semanticLabel,
+      onTap: busy ? null : widget.onPressed,
+      excludeSemantics: true,
       child: SizedBox.square(
         dimension: MicButton.size * 1.4,
         child: Stack(

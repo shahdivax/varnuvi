@@ -110,7 +110,9 @@ class _AccessibilitySetupCardState extends State<AccessibilitySetupCard>
           const SizedBox(height: 20),
           FilledButton.tonal(
             onPressed: _openSettings,
-            child: Text(on ? 'Manage in Android settings' : 'Turn on in Android settings'),
+            child: Text(
+              on ? 'Manage in Android settings' : 'Turn on in Android settings',
+            ),
           ),
         ],
       ),
