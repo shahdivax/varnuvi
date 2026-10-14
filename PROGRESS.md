@@ -62,6 +62,10 @@
 - `BubbleDictation.kt` (Handler fake timer, same 3 s / 1.2 s as Home): tap -> listening -> processing -> inserts the sample sentence -> idle; tapping while listening skips ahead.
 - `BubbleStateRenderer.kt`: listening = deeper tone + gentle shrink pulse, processing = dots glyph + soft fade; content description per state. Focus loss cancels without inserting.
 
+### 14b. Provider interfaces
+- `lib/providers/`: abstract `SpeechToTextProvider` and `AgentProvider` (Dart 3 `interface class`), each with a mock implementation only; no real providers.
+- Mocks return the sample sentence / the input unchanged; nothing is wired to real audio or network.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
