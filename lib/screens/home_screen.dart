@@ -1,16 +1,40 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/placeholder_view.dart';
+import '../mock/mock_data.dart';
+import '../models/transcript_mode.dart';
+import '../widgets/mic_button.dart';
+import '../widgets/mode_chips.dart';
+import '../widgets/transcript_card.dart';
 
-/// Placeholder for the Home tab.
-class HomeScreen extends StatelessWidget {
+/// Home: mic button (idle only for now), mode chips, last transcript.
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TranscriptMode _mode = TranscriptMode.raw;
+
+  @override
   Widget build(BuildContext context) {
-    return const PlaceholderView(
-      icon: Icons.mic_none_outlined,
-      message: 'Home comes next.',
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+      children: [
+        Center(child: MicButton(onPressed: () {})),
+        const SizedBox(height: 32),
+        ModeChips(
+          selected: _mode,
+          onChanged: (m) => setState(() => _mode = m),
+        ),
+        const SizedBox(height: 32),
+        TranscriptCard(
+          title: 'Last transcript',
+          text: kSampleTranscript,
+          mode: _mode,
+        ),
+      ],
     );
   }
 }

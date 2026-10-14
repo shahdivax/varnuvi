@@ -18,6 +18,10 @@
 - `lib/shell/app_shell.dart`: M3 `NavigationBar` with Home, Apps, History, Settings; `IndexedStack` keeps tab state.
 - Each tab is a tiny placeholder screen in `lib/screens/`, sharing `lib/widgets/placeholder_view.dart`.
 
+### 4. Home
+- Large central `MicButton` (idle only, no-op tap), `ModeChips` (Raw, Professional, Translate, Bullets, Summary), `TranscriptCard` with mock text.
+- `TranscriptMode` enum in `lib/models/`, sample sentence in `lib/mock/mock_data.dart`.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -28,3 +32,4 @@
 - Theme mode is in-memory only (no storage package); resets to system on restart.
 - No `cardTheme` in ThemeData to stay compatible across Flutter versions (CardTheme vs CardThemeData rename); cards get styled per widget.
 - Navigation: plain `setState` + `IndexedStack`, no router package.
+- Home mode chip selection is local UI state only; the card label follows the selected chip.
