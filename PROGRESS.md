@@ -22,6 +22,10 @@
 - Large central `MicButton` (idle only, no-op tap), `ModeChips` (Raw, Professional, Translate, Bullets, Summary), `TranscriptCard` with mock text.
 - `TranscriptMode` enum in `lib/models/`, sample sentence in `lib/mock/mock_data.dart`.
 
+### 5. Home mic states
+- `MicState` enum (idle, listening, processing) and `FakeDictation` (ValueNotifier + Timer): tap -> listening 3 s -> processing 1.2 s -> idle; tapping while listening skips ahead.
+- `MicButton` shows a soft pulse ring while listening, a thin spinner while processing; status line under it is a screen-reader live region.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -33,3 +37,4 @@
 - No `cardTheme` in ThemeData to stay compatible across Flutter versions (CardTheme vs CardThemeData rename); cards get styled per widget.
 - Navigation: plain `setState` + `IndexedStack`, no router package.
 - Home mode chip selection is local UI state only; the card label follows the selected chip.
+- Listening state uses a pulse ring, not a waveform (simpler, no fake audio levels needed).
