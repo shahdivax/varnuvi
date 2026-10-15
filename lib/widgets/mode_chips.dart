@@ -12,7 +12,7 @@ class ModeChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      alignment: WrapAlignment.center,
+      alignment: WrapAlignment.start,
       spacing: 8,
       runSpacing: 8,
       children: [

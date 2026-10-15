@@ -88,6 +88,9 @@
 ### Polish 4. Privacy copy
 - Setup card now says the service never stores or sends screen content and reads the tapped field only to place text at the cursor, matching the service description.
 
+### Polish 5. Chip alignment
+- `ModeChips` is start-aligned by itself; the extra Align wrapper in Settings is gone, so Home and Settings match.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -122,3 +125,4 @@
 - One radius (16) for cards, buttons, chips, segmented control and inputs; selected chip/segment uses the accent container tint.
 - AppCard wraps a Material so taps get an ink ripple clipped to the rounded border; History tile keeps its tighter right padding for the copy button.
 - All user-facing privacy text says "never stores or sends" (not "never reads"), because cursor-aware insertion reads the focused field in memory.
+- Mode chips are left-aligned on both Home and Settings, matching the left-aligned text of every card and section.

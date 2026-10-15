@@ -44,12 +44,9 @@ class SettingsScreen extends StatelessWidget {
           title: 'Default mode',
           child: ValueListenableBuilder<TranscriptMode>(
             valueListenable: appSettings.defaultMode,
-            builder: (context, mode, _) => Align(
-              alignment: Alignment.centerLeft,
-              child: ModeChips(
-                selected: mode,
-                onChanged: (m) => appSettings.defaultMode.value = m,
-              ),
+            builder: (context, mode, _) => ModeChips(
+              selected: mode,
+              onChanged: (m) => appSettings.defaultMode.value = m,
             ),
           ),
         ),
