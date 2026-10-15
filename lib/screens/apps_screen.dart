@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../bridge/native_bridge.dart';
 import '../models/installed_app.dart';
 import '../theme/app_spacing.dart';
-import '../theme/app_theme.dart';
 import '../widgets/app_toggle_tile.dart';
 import '../widgets/placeholder_view.dart';
 
@@ -110,9 +109,6 @@ class _AppsScreenState extends State<AppsScreen> {
             decoration: InputDecoration(
               hintText: 'Search apps',
               prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppTheme.radius),
-              ),
             ),
           ),
         ),

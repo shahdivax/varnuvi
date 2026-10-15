@@ -77,6 +77,10 @@
 ### Design consistency pass
 - Polish 1: `lib/theme/app_spacing.dart` holds the one page padding (24 px sides); every screen and the app tile use it. Settings top padding is now 16 like the other tabs.
 
+### Polish 2. Theme shapes
+- `app_theme.dart` now sets filled button, chip, segmented button and input shapes to the shared 16 px radius with the theme border colour.
+- Apps search field no longer overrides its border; it uses the theme input style.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -108,3 +112,4 @@
 - Paste fallback overwrites the clipboard and does not restore it (background apps cannot read the clipboard on Android 10+).
 - Bubble pulse only shrinks (1 -> 0.9), so it never clips inside its fixed-size overlay window. Animations follow the system animator scale.
 - If the field loses focus mid-cycle the cycle is cancelled and nothing is inserted; insertion still re-checks eligibility at the end.
+- One radius (16) for cards, buttons, chips, segmented control and inputs; selected chip/segment uses the accent container tint.

@@ -67,7 +67,16 @@ abstract final class AppTheme {
         surfaceTint: Colors.transparent,
       ));
 
+  static RoundedRectangleBorder _shape() =>
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius));
+
   static ThemeData _build(ColorScheme scheme) {
+    OutlineInputBorder outline(Color color, [double width = 1]) =>
+        OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radius),
+          borderSide: BorderSide(color: color, width: width),
+        );
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
@@ -80,6 +89,34 @@ abstract final class AppTheme {
         surfaceTintColor: Colors.transparent,
       ),
       dividerTheme: DividerThemeData(color: scheme.outline, thickness: 1),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          shape: _shape(),
+          minimumSize: const Size(48, 48),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        shape: _shape(),
+        side: BorderSide(color: scheme.outline),
+        backgroundColor: Colors.transparent,
+        selectedColor: scheme.primaryContainer,
+      ),
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: ButtonStyle(
+          shape: WidgetStatePropertyAll(_shape()),
+          side: WidgetStatePropertyAll(BorderSide(color: scheme.outline)),
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) => states.contains(WidgetState.selected)
+                ? scheme.primaryContainer
+                : Colors.transparent,
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: outline(scheme.outline),
+        enabledBorder: outline(scheme.outline),
+        focusedBorder: outline(scheme.primary, 2),
+      ),
     );
   }
 }
