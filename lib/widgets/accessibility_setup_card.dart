@@ -21,8 +21,9 @@ class _AccessibilitySetupCardState extends State<AccessibilitySetupCard>
       'Shows a small bubble when you tap a text field in an app you turned '
       'on in the Apps tab, and puts your dictated text into that field.';
   static const _doesNot =
-      'It does not read, store, or send what is on your screen. It ignores '
-      'password fields and does nothing in apps you have not turned on.';
+      'It never stores or sends what is on your screen. It reads the field '
+      'you tap only to place your text at the cursor. It ignores password '
+      'fields and does nothing in apps you have not turned on.';
 
   @override
   void initState() {

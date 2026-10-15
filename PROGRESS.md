@@ -85,6 +85,9 @@
 - New `lib/widgets/app_card.dart` is the single card style (tonal surface, border, radius, optional tap).
 - Transcript card, history tile, account card and setup card now use it instead of four copies.
 
+### Polish 4. Privacy copy
+- Setup card now says the service never stores or sends screen content and reads the tapped field only to place text at the cursor, matching the service description.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).
@@ -118,3 +121,4 @@
 - If the field loses focus mid-cycle the cycle is cancelled and nothing is inserted; insertion still re-checks eligibility at the end.
 - One radius (16) for cards, buttons, chips, segmented control and inputs; selected chip/segment uses the accent container tint.
 - AppCard wraps a Material so taps get an ink ripple clipped to the rounded border; History tile keeps its tighter right padding for the copy button.
+- All user-facing privacy text says "never stores or sends" (not "never reads"), because cursor-aware insertion reads the focused field in memory.
