@@ -12,8 +12,11 @@ object TextInserter {
     enum class Path { SET_TEXT, PASTE, FAILED }
     data class Result(val path: Path, val expectedText: String)
 
+    fun visibleText(node: AccessibilityNodeInfo): String =
+        InsertionText.visible(node.text, node.hintText, node.isShowingHintText)
+
     fun insert(context: Context, node: AccessibilityNodeInfo, text: String): Result {
-        val current = if (node.isShowingHintText) "" else node.text?.toString().orEmpty()
+        val current = visibleText(node)
         val start = node.textSelectionStart
         val end = node.textSelectionEnd
         val edit = InsertionText.merge(current, start, end, text)
@@ -30,7 +33,7 @@ object TextInserter {
         // Do not duplicate text if an app applied the action but returned false.
         if (node.refresh() && node.text?.toString() == edit.text) return Result(Path.SET_TEXT, edit.text)
         // A failed action may change focus/content. Never paste into that changed field.
-        if (!node.refresh() || !node.isFocused || node.textSelectionStart != start || node.textSelectionEnd != end || (if (node.isShowingHintText) "" else node.text?.toString().orEmpty()) != current) return Result(Path.FAILED, edit.text)
+        if (!node.refresh() || !node.isFocused || node.textSelectionStart != start || node.textSelectionEnd != end || visibleText(node) != current) return Result(Path.FAILED, edit.text)
         return Result(if (paste(context, node, text)) Path.PASTE else Path.FAILED, edit.text)
     }
     private fun paste(context: Context, node: AccessibilityNodeInfo, text: String): Boolean {
