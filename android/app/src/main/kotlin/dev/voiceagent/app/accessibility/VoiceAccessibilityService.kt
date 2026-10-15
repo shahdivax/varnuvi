@@ -156,7 +156,7 @@ class VoiceAccessibilityService : AccessibilityService() {
         } else if (!handler.hasCallbacks(refresh)) handler.postDelayed(refresh, 200)
     }
 
-    private fun nodeText(node: AccessibilityNodeInfo) = if (node.isShowingHintText) "" else node.text?.toString().orEmpty()
+    private fun nodeText(node: AccessibilityNodeInfo) = TextInserter.visibleText(node)
     private fun beginDictation() {
         if (target != null) return
         try {
