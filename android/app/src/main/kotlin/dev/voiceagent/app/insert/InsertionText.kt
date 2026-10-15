@@ -12,21 +12,26 @@ object InsertionText {
     )
 
     /**
-     * The field's real content. Some apps expose their placeholder ("Text message",
-     * "Message") as the node text without flagging it as a hint. Text is treated
-     * as empty when it equals the reported hint, or when it is a known placeholder
-     * with the cursor at the very start (where a real typed word would not leave it).
+     * The field's real content. Many messaging apps (WhatsApp, Samsung Messages,
+     * Telegram, Instagram...) expose their placeholder ("Message", "Text message")
+     * as the node text without flagging it as a hint. Text is treated as empty when:
+     *  - Android says the hint is showing, or the text equals the reported hint; or
+     *  - the app reports no usable hint, the cursor sits at the very start, and the
+     *    text is a short single line. A typed draft leaves the cursor after the text,
+     *    so this matches an untouched placeholder, not the user's own words.
      */
     fun visible(text: CharSequence?, hint: CharSequence?, showingHint: Boolean,
                 start: Int = -1, end: Int = -1): String {
         val value = text?.toString().orEmpty()
         val placeholder = hint?.toString()
         if (showingHint || value.isEmpty()) return ""
-        if (!placeholder.isNullOrEmpty() && value == placeholder) return ""
+        if (!placeholder.isNullOrEmpty()) return if (value == placeholder) "" else value
         val cursorAtStart = start <= 0 && end <= 0
-        if (cursorAtStart && value.trim().lowercase() in knownPlaceholders) return ""
-        return value
+        val shortLine = value.length <= MAX_PLACEHOLDER && '\n' !in value
+        return if (cursorAtStart && shortLine) "" else value
     }
+
+    private const val MAX_PLACEHOLDER = 40
 
     fun merge(current: String, start: Int, end: Int, addition: String): Edit {
         val a = start.takeIf { it in 0..current.length } ?: current.length
