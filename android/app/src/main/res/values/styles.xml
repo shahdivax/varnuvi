@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
-        <item name="android:windowBackground">#F7F3EA</item>
+        <item name="android:windowBackground">#F7F8FC</item>
     </style>
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
-        <item name="android:windowBackground">#F7F3EA</item>
+        <item name="android:windowBackground">#F7F8FC</item>
+    </style>
+    <style name="RecordingThemeLight" parent="@android:style/Theme.Material.Light.Dialog.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">0dp</item>
+        <item name="android:windowMinWidthMinor">0dp</item>
+        <item name="android:colorAccent">#3156D3</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+    <style name="RecordingThemeDark" parent="@android:style/Theme.Material.Dialog.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">0dp</item>
+        <item name="android:windowMinWidthMinor">0dp</item>
+        <item name="android:colorAccent">#A9BBFF</item>
+        <item name="android:windowActionModeOverlay">true</item>
     </style>
 </resources>

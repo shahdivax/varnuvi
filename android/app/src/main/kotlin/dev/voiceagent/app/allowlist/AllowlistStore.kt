@@ -1,6 +1,7 @@
 package dev.voiceagent.app.allowlist
 
 import android.content.Context
+import android.content.SharedPreferences
 
 /**
  * Package names where the bubble may appear. Empty by default, so the
@@ -21,6 +22,9 @@ class AllowlistStore(context: Context) {
         if (enabled) next.add(packageName) else next.remove(packageName)
         prefs.edit().putStringSet(KEY, next).apply()
     }
+
+    fun addListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) = prefs.registerOnSharedPreferenceChangeListener(listener)
+    fun removeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) = prefs.unregisterOnSharedPreferenceChangeListener(listener)
 
     companion object {
         private const val PREFS = "allowlist"

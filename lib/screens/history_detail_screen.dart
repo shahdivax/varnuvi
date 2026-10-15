@@ -28,8 +28,8 @@ class HistoryDetailScreen extends StatelessWidget {
           children: [
             Text(
               formatFull(item.createdAt),
-              style:
-                  textTheme.labelLarge?.copyWith(color: scheme.onSurfaceVariant),
+              style: textTheme.labelLarge
+                  ?.copyWith(color: scheme.onSurfaceVariant),
             ),
             const SizedBox(height: 16),
             SelectableText(

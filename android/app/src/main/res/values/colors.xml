@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bubble colors, mirroring lib/theme/app_colors.dart. No pure white or black. -->
-    <color name="bubble_background">#FF5E6B7D</color>
-    <color name="bubble_foreground">#FFF7F3EA</color>
-    <color name="bubble_border">#FFDAD1BF</color>
+    <color name="bubble_background">#FF3156D3</color>
+    <color name="bubble_foreground">#FFFFFFFF</color>
+    <color name="bubble_border">#FF3156D3</color>
     <!-- Deeper slate while listening. -->
-    <color name="bubble_active">#FF46515F</color>
+    <color name="bubble_active">#FF2442AC</color>
 </resources>

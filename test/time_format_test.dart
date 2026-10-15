@@ -6,9 +6,11 @@ void main() {
 
   test('relative labels', () {
     expect(formatRelative(now, now: now), 'Just now');
-    expect(formatRelative(DateTime(2026, 10, 15, 11, 55), now: now), '5 min ago');
+    expect(
+        formatRelative(DateTime(2026, 10, 15, 11, 55), now: now), '5 min ago');
     expect(formatRelative(DateTime(2026, 10, 15, 9, 0), now: now), '3 h ago');
-    expect(formatRelative(DateTime(2026, 10, 14, 11, 0), now: now), 'Yesterday');
+    expect(
+        formatRelative(DateTime(2026, 10, 14, 11, 0), now: now), 'Yesterday');
     expect(formatRelative(DateTime(2026, 10, 10, 8, 0), now: now), '10 Oct');
   });
 

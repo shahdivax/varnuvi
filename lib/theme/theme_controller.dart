@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import '../bridge/native_bridge.dart';
 
-/// Holds the selected theme mode: light, dark, or system (default).
-/// In-memory only for now.
 class ThemeController extends ValueNotifier<ThemeMode> {
   ThemeController() : super(ThemeMode.system);
+  Future<void> load() async {
+    final name = await NativeBridge.getTheme();
+    value = ThemeMode.values
+        .firstWhere((m) => m.name == name, orElse: () => ThemeMode.system);
+  }
 
-  void setMode(ThemeMode mode) => value = mode;
+  Future<void> setMode(ThemeMode mode) async {
+    await NativeBridge.setTheme(mode.name);
+    value = mode;
+  }
 }
 
-/// Single app-wide instance.
 final themeController = ThemeController();

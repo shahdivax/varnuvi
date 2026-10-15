@@ -1,6 +1,6 @@
 import 'transcript_mode.dart';
 
-/// One past dictation. Mock data only in this phase.
+/// A locally saved dictation.
 class Transcript {
   const Transcript({
     required this.text,

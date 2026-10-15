@@ -9,13 +9,15 @@ import '../widgets/placeholder_view.dart';
 /// Apps: the user's real installed apps, each with a bubble toggle.
 /// Every app is off until the user turns it on here.
 class AppsScreen extends StatefulWidget {
-  const AppsScreen({super.key});
+  const AppsScreen({super.key, this.active = true});
+
+  final bool active;
 
   @override
   State<AppsScreen> createState() => _AppsScreenState();
 }
 
-class _AppsScreenState extends State<AppsScreen> {
+class _AppsScreenState extends State<AppsScreen> with WidgetsBindingObserver {
   List<InstalledApp>? _apps;
   Set<String> _enabled = {};
   String _query = '';
@@ -24,7 +26,40 @@ class _AppsScreenState extends State<AppsScreen> {
   @override
   void initState() {
     super.initState();
-    _load();
+    WidgetsBinding.instance.addObserver(this);
+    if (widget.active) _load();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(AppsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.active && !oldWidget.active) {
+      if (_apps == null) {
+        _load();
+      } else {
+        _refreshEnabled();
+      }
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && widget.active) _refreshEnabled();
+  }
+
+  Future<void> _refreshEnabled() async {
+    try {
+      final enabled = await NativeBridge.getEnabledPackages();
+      if (mounted) setState(() => _enabled = enabled);
+    } catch (_) {
+      if (mounted) setState(() => _failed = true);
+    }
   }
 
   Future<void> _load() async {
@@ -35,6 +70,7 @@ class _AppsScreenState extends State<AppsScreen> {
       setState(() {
         _apps = apps;
         _enabled = enabled;
+        _failed = false;
       });
     } catch (_) {
       if (mounted) setState(() => _failed = true);
@@ -80,18 +116,29 @@ class _AppsScreenState extends State<AppsScreen> {
   Widget build(BuildContext context) {
     final apps = _apps;
     if (_failed) {
-      return const PlaceholderView(
-        icon: Icons.error_outline,
-        message: 'Could not load your apps.',
-      );
+      return Center(
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const Text('Could not load your apps.'),
+        const SizedBox(height: 12),
+        TextButton.icon(
+            onPressed: _load,
+            icon: const Icon(Icons.refresh),
+            label: const Text('Try again')),
+      ]));
     }
     if (apps == null) {
-      return const Center(child: CircularProgressIndicator(
-          strokeWidth: 2,
-          semanticsLabel: 'Loading apps',
-        ));
+      if (!widget.active) return const SizedBox.shrink();
+      return const Center(
+          child: CircularProgressIndicator(
+        strokeWidth: 2,
+        semanticsLabel: 'Loading apps',
+      ));
     }
     final visible = _visible(apps);
+    final enabled =
+        visible.where((app) => _enabled.contains(app.packageName)).toList();
+    final available =
+        visible.where((app) => !_enabled.contains(app.packageName)).toList();
     final scheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -106,9 +153,9 @@ class _AppsScreenState extends State<AppsScreen> {
           child: TextField(
             onChanged: (v) => setState(() => _query = v),
             textInputAction: TextInputAction.search,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Search apps',
-              prefixIcon: const Icon(Icons.search),
+              prefixIcon: Icon(Icons.search),
             ),
           ),
         ),
@@ -135,16 +182,50 @@ class _AppsScreenState extends State<AppsScreen> {
                       ? 'No apps found.'
                       : 'No apps match your search.',
                 )
-              : ListView.builder(
-                  itemCount: visible.length,
-                  itemBuilder: (context, i) {
-                    final app = visible[i];
-                    return AppToggleTile(
-                      app: app,
-                      enabled: _enabled.contains(app.packageName),
-                      onChanged: (on) => _toggle(app, on),
-                    );
-                  },
+              : CustomScrollView(
+                  primary: false,
+                  slivers: [
+                    for (final section in [
+                      ('Enabled', enabled),
+                      ('Other apps', available),
+                    ]) ...[
+                      if (section.$2.isNotEmpty || section.$1 == 'Enabled')
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                                AppSpacing.page, 20, AppSpacing.page, 8),
+                            child: Text('${section.$1} · ${section.$2.length}',
+                                style: Theme.of(context).textTheme.titleSmall),
+                          ),
+                        ),
+                      if (section.$1 == 'Enabled' && section.$2.isEmpty)
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.page, vertical: 8),
+                            child: Text(
+                              _query.trim().isEmpty
+                                  ? 'Turn on an app below to keep it here.'
+                                  : 'No enabled apps match your search.',
+                              style: TextStyle(color: scheme.onSurfaceVariant),
+                            ),
+                          ),
+                        ),
+                      SliverList.builder(
+                        itemCount: section.$2.length,
+                        itemBuilder: (context, i) {
+                          final app = section.$2[i];
+                          return AppToggleTile(
+                            key: ValueKey(app.packageName),
+                            app: app,
+                            enabled: _enabled.contains(app.packageName),
+                            onChanged: (on) => _toggle(app, on),
+                          );
+                        },
+                      ),
+                    ],
+                    const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                  ],
                 ),
         ),
       ],

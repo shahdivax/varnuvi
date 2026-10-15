@@ -17,7 +17,8 @@ class BubblePositionStore(context: Context) {
 
     companion object {
         private const val PREFS = "bubble"
-        private const val KEY_X = "x"
-        private const val KEY_Y = "y"
+        // Start the compact layout away from the Android shortcut once.
+        private const val KEY_X = "compact_x"
+        private const val KEY_Y = "compact_y"
     }
 }

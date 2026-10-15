@@ -2,14 +2,15 @@ package dev.voiceagent.app.overlay
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.InsetDrawable
 import android.view.View
 import android.widget.ImageView
 import dev.voiceagent.app.R
 
 /** Builds the round bubble: tonal circle, thin border, mic glyph. */
 object BubbleView {
-    /** 52 dp keeps the tap target above the 48 dp minimum. */
-    const val SIZE_DP = 52
+    /** A 40 dp circle inside a comfortable 48 dp touch target. */
+    const val SIZE_DP = 48
 
     fun create(context: Context): ImageView {
         val density = context.resources.displayMetrics.density
@@ -19,7 +20,7 @@ object BubbleView {
             setStroke(density.toInt().coerceAtLeast(1), context.getColor(R.color.bubble_border))
         }
         return ImageView(context).apply {
-            background = bg
+            background = InsetDrawable(bg, (4 * density).toInt())
             setImageResource(R.drawable.ic_bubble_mic)
             val pad = (14 * density).toInt()
             setPadding(pad, pad, pad, pad)

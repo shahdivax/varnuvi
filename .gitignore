@@ -30,3 +30,15 @@ android/captures/
 
 # OS
 .DS_Store
+
+# Local JVM diagnostics, Kotlin caches, and private release artifacts
+android/.kotlin/
+hs_err_pid*.log
+replay_pid*.log
+*.hprof
+.env
+.env.*
+!*.env.example
+release-symbols/
+*.apk
+*.aab

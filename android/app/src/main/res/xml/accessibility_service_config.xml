@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Minimal config: focus and window changes only, no gestures, no key events. -->
+<!-- Track the focused app and field; no key events or gesture capture. -->
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accessibilityEventTypes="typeWindowStateChanged|typeViewFocused"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowsChanged|typeViewFocused|typeWindowContentChanged|typeViewTextSelectionChanged"
     android:accessibilityFeedbackType="feedbackGeneric"
-    android:accessibilityFlags="flagDefault"
+    android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows|flagReportViewIds|flagRequestAccessibilityButton"
     android:canRetrieveWindowContent="true"
     android:description="@string/accessibility_service_description"
     android:notificationTimeout="100" />

@@ -17,8 +17,9 @@ object ServiceStatus {
     }
 
     fun openSettings(context: Context) {
-        val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
+        // The per-service details intent requires a privileged permission on Pixel.
+        // Use the public settings entry point available to ordinary apps.
+        context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 }

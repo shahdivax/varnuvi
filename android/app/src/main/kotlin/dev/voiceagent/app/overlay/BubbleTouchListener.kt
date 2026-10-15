@@ -41,9 +41,10 @@ class BubbleTouchListener(
     }
 
     private fun move(v: View, x: Int, y: Int) {
-        val bounds = wm.currentWindowMetrics.bounds
-        params.x = x.coerceIn(0, (bounds.width() - v.width).coerceAtLeast(0))
-        params.y = y.coerceIn(0, (bounds.height() - v.height).coerceAtLeast(0))
-        wm.updateViewLayout(v, params)
+        if (!v.isAttachedToWindow) return
+        params.x = x
+        params.y = y
+        BubblePlacement.clamp(wm, params, v.width, v.height)
+        try { wm.updateViewLayout(v, params) } catch (_: IllegalArgumentException) { /* App changed during drag. */ }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Keep in sync with kAppName in lib/config/app_config.dart -->
-    <string name="app_name">Voice Agent</string>
+    <string name="app_name">Varnuvi</string>
     <string name="accessibility_service_description">Shows a dictation bubble in text fields of apps you enable. It checks only whether the focused field is editable and which app it belongs to. It never stores or sends what is on your screen, and ignores password fields.</string>
     <string name="bubble_content_description">Dictate into this field</string>
     <string name="bubble_listening_description">Listening. Tap to stop</string>

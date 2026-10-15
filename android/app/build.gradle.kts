@@ -1,7 +1,14 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+val releasePropertiesFile = rootProject.file("key.properties")
+val releaseProperties = Properties().apply {
+    if (releasePropertiesFile.exists()) releasePropertiesFile.inputStream().use { load(it) }
 }
 
 android {
@@ -26,10 +33,25 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (releasePropertiesFile.exists()) {
+            create("release") {
+                storeFile = rootProject.file(requireNotNull(releaseProperties.getProperty("storeFile")))
+                storePassword = requireNotNull(releaseProperties.getProperty("storePassword"))
+                keyAlias = requireNotNull(releaseProperties.getProperty("keyAlias"))
+                keyPassword = requireNotNull(releaseProperties.getProperty("keyPassword"))
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // No release keystore in the public repo; debug signing for local builds.
-            signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            // Without private signing properties, builds stay unsigned.
+            // Never silently distribute a release signed with a debug key.
+            signingConfig = signingConfigs.findByName("release")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
     }
 }

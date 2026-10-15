@@ -38,12 +38,6 @@ class AppToggleTile extends StatelessWidget {
               ),
       ),
       title: Text(app.name, maxLines: 1, overflow: TextOverflow.ellipsis),
-      subtitle: Text(
-        app.packageName,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: scheme.onSurfaceVariant),
-      ),
       value: enabled,
       onChanged: onChanged,
     );

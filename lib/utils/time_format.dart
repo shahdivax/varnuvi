@@ -1,4 +1,5 @@
 /// Package-free timestamp formatting (no intl dependency).
+library;
 
 const _months = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', //

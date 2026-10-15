@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
 import 'config/app_config.dart';
+import 'bridge/native_bridge.dart';
 import 'shell/app_shell.dart';
 import 'theme/app_theme.dart';
 import 'theme/theme_controller.dart';
 
-void main() {
-  runApp(const VoiceAgentApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  NativeBridge.initialize();
+  try {
+    await themeController.load();
+  } catch (_) {/* Use the system appearance if settings are unavailable. */}
+  runApp(const VarnuviApp());
 }
 
-class VoiceAgentApp extends StatelessWidget {
-  const VoiceAgentApp({super.key});
+class VarnuviApp extends StatelessWidget {
+  const VarnuviApp({super.key});
 
   @override
   Widget build(BuildContext context) {
