@@ -13,7 +13,8 @@ object TextInserter {
     data class Result(val path: Path, val expectedText: String)
 
     fun visibleText(node: AccessibilityNodeInfo): String =
-        InsertionText.visible(node.text, node.hintText, node.isShowingHintText)
+        InsertionText.visible(node.text, node.hintText, node.isShowingHintText,
+            node.textSelectionStart, node.textSelectionEnd)
 
     fun insert(context: Context, node: AccessibilityNodeInfo, text: String): Result {
         val current = visibleText(node)

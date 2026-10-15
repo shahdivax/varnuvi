@@ -22,6 +22,11 @@ fun main() {
     check(InsertionText.visible(null, "Text message", false) == "")
     val placeholder = InsertionText.visible("Text message", "Text message", false)
     check(InsertionText.merge(placeholder, 12, 12, "Hello").text == "Hello")
+    check(InsertionText.visible("Message", null, false, 0, 0) == "")
+    check(InsertionText.visible("Message", null, false, -1, -1) == "")
+    check(InsertionText.visible("Message", null, false, 7, 7) == "Message")
+    check(InsertionText.visible("Message me later", null, false, 0, 0) == "Message me later")
+    check(InsertionText.visible("Type a message", "", false, 0, 0) == "")
     println("PASS: placeholder-as-text treated as empty")
     println("PASS: cursor insertion, selected/reversed range replacement, unknown cursor, Unicode, content preservation")
 }
