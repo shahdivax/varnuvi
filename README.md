@@ -18,22 +18,20 @@ or an offline speech recognizer.
 
 ## Download Android
 
-**[Download Varnuvi 0.1.0 for Android · ARM64 APK](https://github.com/shahdivax/varnuvi/releases/download/v0.1.0/varnuvi-0.1.0-arm64-v8a.apk)**
+**[Download Varnuvi 0.1.1 for Android · ARM64 APK](https://github.com/shahdivax/varnuvi/releases/download/v0.1.1/varnuvi-0.1.1-arm64-v8a.apk)**
 
 Recommended for Pixel and most modern Android phones. Android 13+ required.
-This is the first officially signed **private preview**, base build **2**. Sign in
+This is the signed **private preview**, base build **3**. Sign in
 with a GitHub account that has access to this private repository to download.
 
-[Release notes and all files](https://github.com/shahdivax/varnuvi/releases/tag/v0.1.0)
-· [SHA-256 checksums](https://github.com/shahdivax/varnuvi/releases/download/v0.1.0/SHA256SUMS)
+[Release notes and all files](https://github.com/shahdivax/varnuvi/releases/tag/v0.1.1)
+· [SHA-256 checksums](https://github.com/shahdivax/varnuvi/releases/download/v0.1.1/SHA256SUMS)
 
 <details>
 <summary>Other Android builds</summary>
 
-- [32-bit ARM APK](https://github.com/shahdivax/varnuvi/releases/download/v0.1.0/varnuvi-0.1.0-armeabi-v7a.apk)
-- [x86-64 APK](https://github.com/shahdivax/varnuvi/releases/download/v0.1.0/varnuvi-0.1.0-x86_64.apk) for compatible emulators/devices
-- [Android App Bundle](https://github.com/shahdivax/varnuvi/releases/download/v0.1.0/varnuvi-0.1.0.aab) for distribution tooling; install an APK on a phone
-- [Signing certificate details](https://github.com/shahdivax/varnuvi/releases/download/v0.1.0/SIGNING-CERTIFICATE.txt)
+- [32-bit ARM APK](https://github.com/shahdivax/varnuvi/releases/download/v0.1.1/varnuvi-0.1.1-armeabi-v7a.apk)
+- [x86-64 APK](https://github.com/shahdivax/varnuvi/releases/download/v0.1.1/varnuvi-0.1.1-x86_64.apk) for compatible emulators/devices
 
 </details>
 
