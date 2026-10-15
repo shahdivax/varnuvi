@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_theme.dart';
+import 'app_card.dart';
 
 /// Placeholder explaining that account features come in a later phase.
 class AccountPlaceholderCard extends StatelessWidget {
@@ -9,14 +9,7 @@ class AccountPlaceholderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(AppTheme.radius),
-        border: Border.all(color: scheme.outline),
-      ),
+    return AppCard(
       child: Text(
         'Sign-in and account options come in a later version. '
         'Nothing leaves your device today.',

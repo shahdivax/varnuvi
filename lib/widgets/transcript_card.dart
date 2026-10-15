@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../models/transcript_mode.dart';
-import '../theme/app_theme.dart';
+import 'app_card.dart';
 
-/// Tonal card showing a transcript and its mode label.
+/// Card showing a transcript and its mode label.
 class TranscriptCard extends StatelessWidget {
   const TranscriptCard({
     super.key,
@@ -20,14 +20,7 @@ class TranscriptCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(AppTheme.radius),
-        border: Border.all(color: scheme.outline),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
