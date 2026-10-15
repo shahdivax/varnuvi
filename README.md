@@ -21,7 +21,7 @@ or an offline speech recognizer.
 **[Download Varnuvi 0.1.0 for Android · ARM64 APK](https://github.com/shahdivax/varnuvi/releases/download/v0.1.0/varnuvi-0.1.0-arm64-v8a.apk)**
 
 Recommended for Pixel and most modern Android phones. Android 13+ required.
-This is the first officially signed **private preview**, build **2**. Sign in
+This is the first officially signed **private preview**, base build **2**. Sign in
 with a GitHub account that has access to this private repository to download.
 
 [Release notes and all files](https://github.com/shahdivax/varnuvi/releases/tag/v0.1.0)

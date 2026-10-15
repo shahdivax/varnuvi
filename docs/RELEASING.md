@@ -1,6 +1,6 @@
 # Release preparation
 
-The repository stays private for now. The first signed private preview is v0.1.0 (Android build 2), distributed through
+The repository stays private for now. The first signed private preview is v0.1.0 (Flutter base build 2), distributed through
 the private GitHub repository's release assets. This guide does not authorize
 changing repository visibility or uploading to a store.
 
@@ -21,6 +21,10 @@ Without signing properties, release builds are unsigned for build/size validatio
 and cannot be installed as distribution APKs. Debug builds remain debug-signed
 for local testing. A production-signed app cannot update a debug-signed install;
 plan the migration without silently deleting a user's local history/key.
+
+Flutter assigns architecture-specific Android version codes to split APKs.
+For this release the ARM64 APK reports versionCode 2002 from base build 2;
+keep increasing the base build number for future releases.
 
 Prefer ABI-specific APKs to a universal APK. R8 code/resource shrinking and
 Flutter icon tree shaking are enabled. Size measurement:
