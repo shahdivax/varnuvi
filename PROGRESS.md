@@ -74,6 +74,9 @@
 - `README.md`: how to run, enabling the service on a device, privacy, folder structure, known limitations, not-built list, bring-your-own-API-keys section.
 - Phase complete. Nothing compiled or device-tested (no Flutter/Android SDK on the build machine).
 
+### Design consistency pass
+- Polish 1: `lib/theme/app_spacing.dart` holds the one page padding (24 px sides); every screen and the app tile use it. Settings top padding is now 16 like the other tabs.
+
 ## Decisions
 - Package/applicationId `dev.voiceagent.app`; working name lives in `lib/config/app_config.dart` (plus Android `strings.xml` for the launcher label).
 - License: MIT (simplest permissive choice).

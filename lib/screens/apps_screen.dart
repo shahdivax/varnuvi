@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../bridge/native_bridge.dart';
 import '../models/installed_app.dart';
+import '../theme/app_spacing.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_toggle_tile.dart';
 import '../widgets/placeholder_view.dart';
@@ -97,7 +98,12 @@ class _AppsScreenState extends State<AppsScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.page,
+            16,
+            AppSpacing.page,
+            8,
+          ),
           child: TextField(
             onChanged: (v) => setState(() => _query = v),
             textInputAction: TextInputAction.search,
@@ -111,7 +117,12 @@ class _AppsScreenState extends State<AppsScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.page,
+            0,
+            AppSpacing.page,
+            8,
+          ),
           child: Text(
             'The bubble appears only in apps you turn on.',
             style: Theme.of(context)

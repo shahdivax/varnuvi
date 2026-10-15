@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../mock/mock_languages.dart';
 import '../models/transcript_mode.dart';
 import '../settings/app_settings.dart';
+import '../theme/app_spacing.dart';
 import '../theme/theme_controller.dart';
 import '../widgets/accessibility_setup_card.dart';
 import '../widgets/account_placeholder_card.dart';
@@ -17,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
+      padding: AppSpacing.pageInsets,
       children: [
         const SettingsSection(
           title: 'Bubble',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/transcript.dart';
+import '../theme/app_spacing.dart';
 import '../utils/copy_text.dart';
 import '../utils/time_format.dart';
 
@@ -18,7 +19,12 @@ class HistoryDetailScreen extends StatelessWidget {
       appBar: AppBar(title: Text(item.mode.label)),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.page,
+            8,
+            AppSpacing.page,
+            24,
+          ),
           children: [
             Text(
               formatFull(item.createdAt),

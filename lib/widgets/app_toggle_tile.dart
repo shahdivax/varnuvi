@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/installed_app.dart';
+import '../theme/app_spacing.dart';
 
 /// One row on the Apps screen: the app's own icon, name, and bubble switch.
 class AppToggleTile extends StatelessWidget {
@@ -22,7 +23,10 @@ class AppToggleTile extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final icon = app.icon;
     return SwitchListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.page,
+        vertical: 4,
+      ),
       secondary: SizedBox.square(
         dimension: iconSize,
         child: icon == null

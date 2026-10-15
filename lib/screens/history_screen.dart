@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../mock/mock_history.dart';
 import '../models/transcript.dart';
+import '../theme/app_spacing.dart';
 import '../widgets/history_tile.dart';
 import '../widgets/placeholder_view.dart';
 import 'history_detail_screen.dart';
@@ -34,7 +35,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       );
     }
     return ListView.separated(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+      padding: AppSpacing.pageInsets,
       itemCount: _items.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (_, i) => HistoryTile(

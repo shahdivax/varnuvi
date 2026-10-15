@@ -4,6 +4,7 @@ import '../mock/fake_dictation.dart';
 import '../mock/mock_data.dart';
 import '../models/mic_state.dart';
 import '../models/transcript_mode.dart';
+import '../theme/app_spacing.dart';
 import '../widgets/mic_button.dart';
 import '../widgets/mode_chips.dart';
 import '../widgets/transcript_card.dart';
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+      padding: AppSpacing.pageInsets,
       children: [
         ValueListenableBuilder<MicState>(
           valueListenable: _dictation,
