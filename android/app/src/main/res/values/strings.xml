@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keep in sync with kAppName in lib/config/app_config.dart -->
+    <string name="app_name">Varnuvi</string>
+    <string name="bubble_content_description">Start dictation</string>
+    <string name="bubble_listening_description">Listening. Tap to stop</string>
+    <string name="bubble_processing_description">Processing dictation</string>
+</resources>
