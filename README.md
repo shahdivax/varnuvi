@@ -1,27 +1,48 @@
 <p align="center">
-  <img src="assets/brand/varnuvi-mark.png" width="80" alt="Varnuvi" />
+  <img src="docs/images/hero.png" width="100%" alt="Varnuvi — a little space for your voice. Real Speak and History screens in light and dark themes." />
 </p>
+
+<p align="center">
+  <a href="https://github.com/shahdivax/varnuvi/releases"><strong>Download for Android</strong></a>
+  &nbsp; · &nbsp;
+  <a href="docs/SELF_HOSTING.md"><strong>Host your speech server</strong></a>
+  &nbsp; · &nbsp;
+  <a href="docs/DEVELOPMENT.md">Build from source</a>
+</p>
+
+<p align="center">Android 13+ &nbsp; · &nbsp; Self-hosted transcription &nbsp; · &nbsp; MIT licensed</p>
 
 # Varnuvi
 
-A small Android dictation app with a floating microphone. Speak, review your
-words, copy, and paste wherever you need them.
+A small Android dictation app that gives your words room to land. Tap the floating
+mic, speak naturally, review your text, then copy and paste it into your app.
 
-**Bring your own speech server.** Varnuvi ships with no transcription address,
-access token, or hosted service. The included Python server runs faster-whisper
-on your own PC or EC2 instance. Optional AI writing uses your own OpenRouter key.
+**Your speech server, your choice.** Run the included faster-whisper API on a
+personal PC or EC2. No transcription address, access token, or hosted service is
+bundled. Optional AI writing uses your own OpenRouter connection.
 
-## What it does
+## A quieter way to write
 
-- Dictation inside the app or from a draggable floating bubble.
-- Continuous recording in 30-second chunks, up to 30 minutes per session.
-- Editable results, explicit copy, and device-local history (latest 100 entries).
-- Light, dark, and system appearance.
-- Optional translation, summaries, tone, and formatting through OpenRouter.
+| Speak without stopping | Make it your own | Keep it close |
+| --- | --- | --- |
+| Record in the app or from a draggable floating mic. Continuous 30-second uploads support sessions up to 30 minutes. | Review and edit before copying. Add translation, summaries, tone, or formatting with optional AI writing. | Keep the latest 100 saved transcripts on your device. Choose light, dark, or system appearance. |
 
-The bubble uses **Display over other apps**, with manual show/hide and a
-notification Hide action. There is no accessibility service, screen reading,
-app tracking, or automatic insertion into other apps. Paste is always your choice.
+The bubble uses **Display over other apps**. There is no accessibility service,
+screen reading, app tracking, or automatic insertion. You decide when to show it,
+when to copy, and where to paste.
+
+## Inside the app
+
+<table>
+  <tr>
+    <td align="center" width="25%"><strong>Speak</strong><br /><br /><a href="docs/images/speak-light.png"><img src="docs/images/speak-light.png" width="220" alt="Speak screen in light mode with an editable synthetic draft and Copy and Save controls" /></a><br /><sub>Room for a first draft.</sub></td>
+    <td align="center" width="25%"><strong>Bubble</strong><br /><br /><a href="docs/images/bubble-dark.png"><img src="docs/images/bubble-dark.png" width="220" alt="Bubble screen in dark mode with the real floating microphone enabled and a Hide bubble control" /></a><br /><sub>A shortcut when you need it.</sub></td>
+    <td align="center" width="25%"><strong>History</strong><br /><br /><a href="docs/images/history-light.png"><img src="docs/images/history-light.png" width="220" alt="History screen in light mode showing three synthetic saved notes" /></a><br /><sub>Thoughts worth returning to.</sub></td>
+    <td align="center" width="25%"><strong>Your server</strong><br /><br /><a href="docs/images/server-dark.png"><img src="docs/images/server-dark.png" width="220" alt="Speech server setup in dark mode with empty API URL and access token fields" /></a><br /><sub>Connect on your terms.</sub></td>
+  </tr>
+</table>
+
+<sub>Actual app screens with synthetic example text. Tap a screen for the full-size image.</sub>
 
 ## Get started
 
@@ -43,7 +64,7 @@ The bubble stays across apps while enabled. Hide it from the Bubble tab or its
 notification. It hides while recording and on the lock screen. Some banking
 apps restrict overlays or USB debugging; compatibility varies by device/app.
 
-## Host the API yourself
+## One small API. Hosted by you.
 
 You need only the included **`POST /api/transcribe`** endpoint. **`GET /health`**
 is used to test the connection. No streaming API, timestamps API, OpenRouter key,
@@ -69,7 +90,7 @@ on, the completed transcript and writing preferences go to the selected model.
 The connection test uses synthetic text and may consume provider credits.
 Changing the key or model requires testing again.
 
-## Privacy
+## Privacy, by choice
 
 - Audio goes to the speech server you configure, in WAV chunks.
 - Public server connections require HTTPS and an access token. HTTP is allowed
